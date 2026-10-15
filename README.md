@@ -1,6 +1,6 @@
 # What Privacy Actually Costs — experiment kit
 
-PyTorch Conference NA 2026 poster (Responsible AI) — Shrinath Thube (IBM) & Vaibhav Tupe (Crusoe)
+PyTorch Conference NA 2026 (Responsible AI)
 
 An accuracy-vs-ε curve for LoRA fine-tuning under DP-SGD (Opacus), with a non-private
 baseline, a clipping-norm sensitivity check, and the compute cost of the sweep.
