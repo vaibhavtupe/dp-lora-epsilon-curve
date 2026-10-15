@@ -18,7 +18,7 @@ baseline, a clipping-norm sensitivity check, and the compute cost of the sweep.
 | Learning rate | 1-epoch pilot over 2e-4…1e-2; picked 5e-4 (non-private) and 5e-3 (DP) | DP needs ~10× the LR; too low a LR stalls at chance under heavy noise |
 | Seeds | 3 for the main curve | Error bars on the poster |
 
-## Run it (any single A100/H100/L40S; we used 1× L40S on RunPod)
+## Run it (any single A100/H100/L40S; we used 1× L40S on Crusoe Cloud)
 
 ```bash
 pip install -r requirements.txt
@@ -58,4 +58,4 @@ Final numbers and figures are in `results/` and `figures/` (added after the run)
 
 ## Citation
 
-Thube, S. and Tupe, V. *What Privacy Actually Costs: An Accuracy-vs-Epsilon Curve for LoRA Fine-Tuning.* Poster, PyTorch Conference North America 2026.
+*What Privacy Actually Costs: An Accuracy-vs-Epsilon Curve for LoRA Fine-Tuning.* PyTorch Conference North America 2026.
