@@ -1,0 +1,8 @@
+torch>=2.3
+opacus>=1.5
+transformers>=4.44
+peft>=0.12
+datasets>=2.20
+pandas
+matplotlib
+tabulate
