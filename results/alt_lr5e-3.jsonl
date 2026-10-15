@@ -1,0 +1,15 @@
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.576, "clip": 1.0, "seed": 0, "acc": 0.8991, "eps": 7.974, "wall_s": 375.1, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.736, "clip": 1.0, "seed": 0, "acc": 0.9071, "eps": 3.997, "wall_s": 375.1, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.954, "clip": 1.0, "seed": 0, "acc": 0.8945, "eps": 1.995, "wall_s": 375.6, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.287, "clip": 1.0, "seed": 0, "acc": 0.8922, "eps": 0.996, "wall_s": 374.8, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.918, "clip": 1.0, "seed": 0, "acc": 0.8796, "eps": 0.498, "wall_s": 375.1, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.576, "clip": 1.0, "seed": 1, "acc": 0.8991, "eps": 7.974, "wall_s": 375.4, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.736, "clip": 1.0, "seed": 1, "acc": 0.8911, "eps": 3.997, "wall_s": 376.4, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.954, "clip": 1.0, "seed": 1, "acc": 0.8819, "eps": 1.995, "wall_s": 377.4, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.287, "clip": 1.0, "seed": 1, "acc": 0.8704, "eps": 0.996, "wall_s": 377.4, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.918, "clip": 1.0, "seed": 1, "acc": 0.8544, "eps": 0.498, "wall_s": 376.5, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.576, "clip": 1.0, "seed": 2, "acc": 0.8888, "eps": 7.974, "wall_s": 375.8, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.736, "clip": 1.0, "seed": 2, "acc": 0.8739, "eps": 3.997, "wall_s": 376.7, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 0.954, "clip": 1.0, "seed": 2, "acc": 0.8784, "eps": 1.995, "wall_s": 376.3, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.287, "clip": 1.0, "seed": 2, "acc": 0.8773, "eps": 0.996, "wall_s": 375.2, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}
+{"tag": "main", "private": true, "lr": 0.005, "sigma": 1.918, "clip": 1.0, "seed": 2, "acc": 0.8658, "eps": 0.498, "wall_s": 379.1, "peak_mem_gb": 7.73, "delta": 1e-05, "epochs": 3, "source": "results"}

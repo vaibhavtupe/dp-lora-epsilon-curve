@@ -43,6 +43,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--inp", default="results/results.jsonl")
     p.add_argument("--outdir", default="figures")
+    p.add_argument("--clip_inp", default="", help="optional jsonl to draw the clipping figure from (default: --inp)")
     p.add_argument("--lr_extra", nargs="*", default=[], help="jsonl files with DP runs at an alternative LR (seed 0)")
     p.add_argument("--no_titles", action="store_true", help="omit chart titles (poster has section headers)")
     p.add_argument("--preview", action="store_true", help="watermark figures (synthetic data)")
@@ -70,7 +71,7 @@ def main():
                 mec="white", mew=2, label="DP-SGD + LoRA (Opacus)")
     for e, acc in zip(g.eps, g.acc):
         ax.annotate(f"{acc:.1f}%\n(−{b_mean-acc:.1f} pts)", (e, acc), textcoords="offset points",
-                    xytext=(0, -46), ha="center", color=INK, fontsize=16)
+                    xytext=(0, -58), ha="center", color=INK, fontsize=16)
     ax.set_xscale("log")
     ax.set_xticks(g.eps); ax.set_xticklabels([f"{e:.2g}" for e in g.eps])
     ax.minorticks_off()
@@ -84,7 +85,10 @@ def main():
     save(fig, a.outdir, "fig1_acc_vs_eps")
 
     # ---- fig 2: clipping sensitivity at sigma~0.954
-    clip = df[(df.private) & (np.isclose(df.sigma, 0.954)) & (df.seed == 0)].groupby("clip").acc_pct.mean()
+    cdf = df
+    if a.clip_inp:
+        cdf = pd.DataFrame([json.loads(l) for l in open(a.clip_inp) if l.strip()]); cdf["acc_pct"] = cdf["acc"] * 100
+    clip = cdf[(cdf.private) & (np.isclose(cdf.sigma, 0.954)) & (cdf.seed == 0)].groupby("clip").acc_pct.mean()
     if len(clip) > 1:
         fig, ax = plt.subplots(figsize=(10, 4.6))
         ax.plot(clip.index, clip.values, color=DP, lw=2, marker="o", ms=10, mec="white", mew=2)
@@ -96,7 +100,7 @@ def main():
         ax.minorticks_off()
         ax.set_xlabel("Clipping norm C (log scale)"); ax.set_ylabel("Validation accuracy (%)")
         ax.set_ylim(clip.min() - 5, max(clip.max() + 4, b_mean))
-        eps2 = df[(df.private) & np.isclose(df.sigma, 0.954)].eps.mean()
+        eps2 = cdf[(cdf.private) & np.isclose(cdf.sigma, 0.954)].eps.mean()
         if not NOTITLE: ax.set_title(f"Clipping-norm sensitivity at ε ≈ {eps2:.1f}", loc="left", fontweight="bold")
         save(fig, a.outdir, "fig2_clip")
 
@@ -131,18 +135,18 @@ def main():
         fig, ax = plt.subplots(figsize=(10, 5.0))
         ax.axhline(50.9, color=GRID, lw=2, ls=":")
         ax.text(g.eps.min() / 1.3, 51.8, "chance (majority class)", color=INK2, fontsize=15)
-        series = [(dp[dp.seed == 0], f"LR {main_lr:g}", DP)]
+        series = [(dp, f"LR {main_lr:g} (used)", DP)]
         for lr_alt, sub in alt.groupby("lr"):
             series.append((sub, f"LR {lr_alt:g}", "#eb6834"))
-        for sub, lab, col in series:
-            sub = sub.sort_values("eps")
-            ax.plot(sub.eps, sub.acc_pct, color=col, lw=2, marker="o", ms=10, mec="white", mew=2, label=lab)
-            last = sub.iloc[0]
-            ax.annotate(lab, (last.eps, last.acc_pct), textcoords="offset points", xytext=(-8, 10 if col == DP else -24),
-                        ha="right", color=col, fontsize=16, fontweight="bold")
+        for k, (sub, lab, col) in enumerate(series):
+            gg = sub.groupby("sigma").agg(eps=("eps", "mean"), m=("acc_pct", "mean"), sd=("acc_pct", "std")).fillna(0).sort_values("eps")
+            ax.errorbar(gg.eps, gg.m, yerr=gg.sd, color=col, lw=2, marker="o", ms=10, mec="white", mew=2, capsize=5, label=lab)
+        ax.legend(loc="lower right", frameon=False, fontsize=17)
         ax.set_xscale("log"); ax.set_xticks(g.eps); ax.set_xticklabels([f"{e:.2g}" for e in g.eps]); ax.minorticks_off()
         ax.set_xlim(g.eps.min() / 1.6, g.eps.max() * 1.4)
-        ax.set_ylim(45, 96)
+        lo_ = min(alt.acc_pct.min(), dp.acc_pct.min())
+        ax.set_ylim(45 if lo_ < 60 else lo_ - 3, 96 if lo_ < 60 else min(100, max(dp.acc_pct.max(), alt.acc_pct.max()) + 2))
+        if lo_ >= 60: [l.remove() for l in ax.texts if "chance" in l.get_text()]; [l.remove() for l in ax.lines if l.get_linestyle() == ":"]
         ax.set_xlabel("Privacy budget ε"); ax.set_ylabel("Validation accuracy (%)")
         if not NOTITLE: ax.set_title("Same model, two learning rates", loc="left", fontweight="bold")
         save(fig, a.outdir, "fig4_lr")
